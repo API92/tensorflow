@@ -558,6 +558,18 @@ cc_library(
 )
 
 cc_library(
+    name = "device_name_utils",
+    srcs = ["device_name_utils.cc"],
+    hdrs = ["device_name_utils.h"],
+    deps = [
+        ":tensor_format",
+        "//tensorflow/core/framework:attr_value_proto_cc",
+        "//tensorflow/core/lib/core:errors",
+        "//tensorflow/core/lib/core:status",
+    ],
+)
+
+cc_library(
     name = "einsum_op_util",
     srcs = ["einsum_op_util.cc"],
     hdrs = ["einsum_op_util.h"],

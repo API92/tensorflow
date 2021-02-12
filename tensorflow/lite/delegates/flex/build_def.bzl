@@ -22,7 +22,7 @@ load(
 load("@build_bazel_rules_android//android:rules.bzl", "android_library")
 load("//tensorflow/lite:special_rules.bzl", "flex_portable_tensorflow_deps")
 
-def generate_flex_kernel_header(
+def _generate_flex_kernel_header(
         name,
         models,
         testonly = 0,
@@ -86,6 +86,15 @@ def generate_flex_kernel_header(
     )
     return struct(include_path = include_path, header = header)
 
+def generate_flex_kernel_header(
+        name,
+        models,
+        testonly = 0,
+        additional_deps = []):
+    include_path = "includes"
+    header = include_path + "/ops_to_register.h"
+    return struct(include_path = include_path, header = header)
+
 def tflite_flex_cc_library(
         name,
         models = [],
@@ -117,9 +126,9 @@ def tflite_flex_cc_library(
         native.cc_library(
             name = "%s_tensorflow_lib" % name,
             srcs = if_mobile([
-                clean_dep("//tensorflow/core:portable_op_registrations_and_gradients"),
-                clean_dep("//tensorflow/core/kernels:android_core_ops"),
-                clean_dep("//tensorflow/core/kernels:android_extended_ops"),
+                #clean_dep("//tensorflow/core:portable_op_registrations_and_gradients"),
+                #clean_dep("//tensorflow/core/kernels:android_core_ops"),
+                #clean_dep("//tensorflow/core/kernels:android_extended_ops"),
             ]) + [CUSTOM_KERNEL_HEADER.header],
             copts = tf_copts(android_optimization_level_override = None) + tf_opts_nortti_if_lite_protos() + if_ios(["-Os"]),
             defines = [
@@ -140,9 +149,9 @@ def tflite_flex_cc_library(
             visibility = visibility,
             deps = flex_portable_tensorflow_deps() + [
                 clean_dep("//tensorflow/core:protos_all_cc"),
-                clean_dep("//tensorflow/core:portable_tensorflow_lib_lite"),
+                #clean_dep("//tensorflow/core:portable_tensorflow_lib_lite"),
                 clean_dep("//tensorflow/core/platform:strong_hash"),
-                clean_dep("//tensorflow/lite/delegates/flex:portable_images_lib"),
+#                clean_dep("//tensorflow/lite/delegates/flex:portable_images_lib"),
             ],
             alwayslink = 1,
             testonly = testonly,
@@ -168,9 +177,12 @@ def tflite_flex_cc_library(
                 portable_tensorflow_lib,
             ],
             "//conditions:default": [
-                clean_dep("//tensorflow/core:tensorflow"),
-                clean_dep("//tensorflow/lite/c:common"),
+                portable_tensorflow_lib,
             ],
+#            "//conditions:default": [
+#                clean_dep("//tensorflow/core:tensorflow"),
+#                clean_dep("//tensorflow/lite/c:common"),
+#            ],
         }) + additional_deps,
         testonly = testonly,
         alwayslink = 1,

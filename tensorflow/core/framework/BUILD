@@ -991,7 +991,10 @@ cc_library(
         "registration_options.h",
         "selective_registration.h",
     ],
-    deps = tf_selective_registration_deps(),
+    visibility = ["//visibility:public"],
+    deps = tf_selective_registration_deps() + [
+        "//custom:ops_to_register",
+        ],
 )
 
 cc_library(

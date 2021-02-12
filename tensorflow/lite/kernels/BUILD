@@ -781,7 +781,8 @@ cc_library(
     copts = tflite_copts(),
     # Limit visibility to TFLite only.
     visibility = [
-        "//tensorflow/lite:__subpackages__",
+        #"//tensorflow/lite:__subpackages__",
+        "//visibility:public",
     ],
     deps = [
         ":builtin_op_kernels",

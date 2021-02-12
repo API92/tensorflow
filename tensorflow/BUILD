@@ -527,6 +527,8 @@ selects.config_setting_group(
         ":chromiumos",
         ":emscripten",
         ":ios",
+        ":linux_x86_64",
+        ":linux_armhf",
     ],
 )
 

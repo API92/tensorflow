@@ -2,7 +2,7 @@
 # Platform-specific build configurations.
 
 load("//tensorflow/core/platform:rules_cc.bzl", "cc_library")
-load("//tensorflow:tensorflow.bzl", "tf_copts", "tf_cuda_library")
+load("//tensorflow:tensorflow.bzl", "tf_copts", "tf_cuda_library", "if_not_mobile")
 load("//tensorflow/core/platform:build_config_root.bzl", "if_static")
 
 package(default_visibility = ["//tensorflow:internal"])
@@ -144,7 +144,7 @@ cc_library(
 cc_library(
     name = "platformlib",
     copts = tf_copts(),
-    deps = [
+    deps = if_not_mobile([
         ":gif",
         ":jpeg",
         "//tensorflow/core:protos_all_cc",
@@ -153,7 +153,7 @@ cc_library(
         "@fft2d",
         "@highwayhash//:sip_hash",
         "@zlib",
-    ],
+    ]),
 )
 
 cc_library(

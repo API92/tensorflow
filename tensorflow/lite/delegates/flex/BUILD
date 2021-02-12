@@ -2,6 +2,11 @@ load("//tensorflow:tensorflow.bzl", "tf_cc_test", "tf_opts_nortti_if_lite_protos
 load("//tensorflow/lite:build_def.bzl", "tflite_copts")
 load("//tensorflow/lite/delegates/flex:build_def.bzl", "tflite_flex_cc_library")
 load("//tensorflow:tensorflow.bzl", "get_compatible_with_cloud")
+load(
+    "//tensorflow/core/platform:build_config.bzl",
+    "tf_portable_deps_no_runtime",
+    "tf_portable_proto_lib",
+    )
 
 #
 # This is a TF Lite delegate that is powered by TensorFlow's Eager.
@@ -37,10 +42,13 @@ cc_library(
             "//tensorflow/core:portable_tensorflow_lib_lite",
         ],
         "//conditions:default": [
-            "//tensorflow/c:c_api_internal",
-            "//tensorflow/core:framework",
-            "//tensorflow/core:protos_all_cc",
+            #"//tensorflow/core:portable_tensorflow_lib_lite",
         ],
+#        "//conditions:default": [
+#            "//tensorflow/c:c_api_internal",
+#            "//tensorflow/core:framework",
+#            "//tensorflow/core:protos_all_cc",
+#        ],
     }),
 )
 
@@ -112,13 +120,17 @@ cc_library(
             "//tensorflow/core:portable_tensorflow_lib_lite",
         ],
         "//conditions:default": [
-            "//tensorflow/core/common_runtime/eager:context",
-            "//tensorflow/core/common_runtime/eager:execute",
-            "//tensorflow/core/common_runtime/eager:tensor_handle",
-            "//tensorflow/core:lib",
-            "//tensorflow/core:protos_all_cc",
-            "//tensorflow/core:framework",
-        ],
+            #"//tensorflow/core:portable_tensorflow_lib_lite",
+        ] + [
+        ] + tf_portable_proto_lib(),# + tf_portable_deps_no_runtime(),
+#        "//conditions:default": [
+#            "//tensorflow/core/common_runtime/eager:context",
+#            "//tensorflow/core/common_runtime/eager:execute",
+#            "//tensorflow/core/common_runtime/eager:tensor_handle",
+#            "//tensorflow/core:lib",
+#            "//tensorflow/core:protos_all_cc",
+#            "//tensorflow/core:framework",
+#        ],
     }),
     alwayslink = 1,
 )
@@ -155,11 +167,19 @@ cc_library(
             "//tensorflow/core:portable_tensorflow_lib_lite",
         ],
         "//conditions:default": [
+            #"//tensorflow/core:portable_tensorflow_lib_lite",
+            "//tensorflow/c:c_api_internal",
             "//tensorflow/core/common_runtime/eager:context",
+            "//tensorflow/core/common_runtime/eager:custom_device",
+            "//tensorflow/core/common_runtime/eager:execute",
             "//tensorflow/core/common_runtime/eager:core",
-            "//tensorflow/core:core_cpu",
-            "//tensorflow/core:lib",
-        ],
+        ] + tf_portable_proto_lib() + tf_portable_deps_no_runtime(),
+#        "//conditions:default": [
+#            "//tensorflow/core/common_runtime/eager:context",
+#            "//tensorflow/core/common_runtime/eager:core",
+#            "//tensorflow/core:core_cpu",
+#            "//tensorflow/core:lib",
+#        ],
     }),
 )
 
@@ -219,10 +239,19 @@ cc_library(
             "//tensorflow/core:portable_tensorflow_lib_lite",
         ],
         "//conditions:default": [
-            "//tensorflow/c:c_api_internal",
+            #"//tensorflow/core:portable_tensorflow_lib_lite",
+            "//tensorflow/core/framework:selective_registration",
+            "//tensorflow/core:framework_lite",
             "//tensorflow/core:lib",
-            "//tensorflow/core:framework",
-        ],
+            "//tensorflow/core:framework_internal",
+            "//tensorflow/c:c_api_internal",
+            "//tensorflow/c/eager:immediate_execution_context",
+        ] + tf_portable_proto_lib() + tf_portable_deps_no_runtime(),
+#        "//conditions:default": [
+#            "//tensorflow/c:c_api_internal",
+#            "//tensorflow/core:lib",
+#            "//tensorflow/core:framework",
+#        ],
     }),
 )
 

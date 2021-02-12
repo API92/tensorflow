@@ -285,7 +285,8 @@ tf_kernel_library(
         "gpu_device_array_gpu.h",
     ],
     deps = [
-        "//tensorflow/core:framework",
+        #"//tensorflow/core:framework",
+        "//tensorflow/core:framework_lite",
         "//tensorflow/core:framework_internal",
         "//tensorflow/core/framework:bounds_check",
         "//third_party/eigen3",
@@ -358,7 +359,9 @@ tf_kernel_library(
     name = "fill_functor",
     prefix = "fill_functor",
     deps = [
-        "//tensorflow/core:framework",
+        #"//tensorflow/core:framework",
+        "//tensorflow/core:framework_lite",
+        "//tensorflow/core:framework_internal",
         "//third_party/eigen3",
     ],
 )
@@ -481,7 +484,8 @@ cc_library(
     hdrs = ["ops_util.h"],
     copts = if_not_windows(["-Wno-sign-compare"]),
     deps = [
-        "//tensorflow/core:framework",
+        #"//tensorflow/core:framework",
+        "//tensorflow/core:framework_lite",
     ],
 )
 
@@ -1118,7 +1122,23 @@ tf_kernel_library(
 tf_kernel_library(
     name = "pad_op",
     prefix = "pad_op",
-    deps = ARRAY_DEPS,
+    #deps = ARRAY_DEPS,
+    deps = [
+        #":concat_lib",
+        #":fill_functor",
+        #":gather_functor",
+        #":ops_util",
+        #":transpose_functor",
+        #"//tensorflow/core:array_grad",
+        "//tensorflow/core:core_cpu",
+        "//tensorflow/core:framework_lite",
+        #"//tensorflow/core:framework",
+        "//tensorflow/core:lib",
+        "//tensorflow/core:lib_internal",
+        "//tensorflow/core:protos_all_cc",
+        "//tensorflow/core/framework:bounds_check",
+        "//third_party/eigen3",
+    ]
 )
 
 tf_kernel_library(
@@ -1906,7 +1926,8 @@ tf_kernel_library(
     prefix = "gather_functor",
     visibility = [":friends"],
     deps = [
-        "//tensorflow/core:framework",
+        #"//tensorflow/core:framework",
+        "//tensorflow/core:framework_lite",
         "//tensorflow/core/framework:bounds_check",
         "//third_party/eigen3",
     ],
@@ -2236,7 +2257,8 @@ tf_kernel_library(
     deps = [
         ":conv_2d",
         ":ops_util",
-        "//tensorflow/core:framework",
+        #"//tensorflow/core:framework",
+        "//tensorflow/core:framework_lite",
         "//tensorflow/core:lib",
         "//tensorflow/core:protos_all_cc",
         "//third_party/eigen3",

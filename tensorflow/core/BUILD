@@ -68,6 +68,7 @@ load(
     "if_ios",
     "if_libtpu",
     "if_mobile",
+    "if_not_mobile",
     "if_not_windows",
     "tf_cc_test",
     "tf_cc_test_mkl",
@@ -1186,7 +1187,8 @@ filegroup(
             "lib/png/**/*",
         ],
     ),
-    visibility = ["//visibility:private"],
+    #visibility = ["//visibility:private"],
+    visibility = ["//visibility:public"],
 )
 
 filegroup(
@@ -1227,8 +1229,9 @@ cc_library(
         "@com_google_absl//absl/strings",
         "//third_party/eigen3",
         "@com_google_absl//absl/base:core_headers",
-        "//tensorflow/core/platform/default/build_config:platformlib",
-    ] + if_static([":lib_internal_impl"]),
+    ] +
+    #["//tensorflow/core/platform/default/build_config:platformlib"] +
+    if_static([":lib_internal_impl"]),
 )
 
 # Until we can ditch config=monolithic on windows, we have to provide an always
@@ -1253,7 +1256,8 @@ cc_library(
         "@com_google_absl//absl/strings",
         "//third_party/eigen3",
         "@com_google_absl//absl/base:core_headers",
-        "//tensorflow/core/platform/default/build_config:platformlib",
+        #"//tensorflow/core/platform/default/build_config:platformlib",
+        "//tensorflow/core/platform/default/build_config:proto_parsing",
     ],
 )
 
@@ -1409,7 +1413,7 @@ cc_library(
         "//tensorflow/core/platform:tracing",
         "//tensorflow/core/platform:tstring",
         "//tensorflow/core/platform:unbounded_work_queue",
-        "//tensorflow/core/platform/default/build_config:platformlib",
+        #"//tensorflow/core/platform/default/build_config:platformlib",
         "//tensorflow/core/util:env_var",
         "//tensorflow/core/util:reporter",  # TODO(gunan): REMOVE as soon as cc_shared_library is supported.
         "@snappy",
@@ -1537,6 +1541,7 @@ tf_cuda_library(
             "@com_google_protobuf//:protobuf_headers",
         ],
     ),
+    visibility = ["//visibility:public"],
     alwayslink = 1,
 )
 
@@ -1553,7 +1558,8 @@ cc_header_only_library(
         ":lib_internal",
         ":version_lib",
         "//tensorflow/core/framework:bounds_check",
-        "//tensorflow/core/platform/default/build_config:platformlib",
+        #"//tensorflow/core/platform/default/build_config:platformlib",
+        "//tensorflow/core/platform/default/build_config:proto_parsing",
     ],
 )
 
@@ -1619,7 +1625,7 @@ tf_cuda_library(
         "//tensorflow/core/framework:tensor",
         "//tensorflow/core/framework:tensor_shape",
         "//tensorflow/core/platform:env_impl",
-        "//tensorflow/core/platform/default/build_config:platformlib",
+        #"//tensorflow/core/platform/default/build_config:platformlib",
         "//tensorflow/core/profiler/lib:annotated_traceme",
         "//tensorflow/core/profiler/lib:traceme",
         "//tensorflow/core/util:einsum_op_util",

@@ -116,7 +116,8 @@ def tf_portable_full_lite_protos(full, lite):
         "//tensorflow:mobile_full_protos": full,
         # The default should probably be lite runtime, but since most clients
         # seem to use the non-lite version, let's make that the default for now.
-        "//conditions:default": full,
+        "//conditions:default": lite,
+        #"//conditions:default": full,
     })
 
 def if_no_default_logger(a):
@@ -1442,6 +1443,7 @@ def tf_kernel_library(
         gpu_copts = []
     textual_hdrs = []
     copts = copts + tf_copts(is_external = is_external)
+    copts = copts + tf_opts_nortti_if_lite_protos()
 
     # Override EIGEN_STRONG_INLINE to inline when
     # --define=override_eigen_strong_inline=true to avoid long compiling time.
@@ -1485,6 +1487,7 @@ def tf_kernel_library(
         "req_dep=%s" % clean_dep("//tensorflow/core:gpu_lib"),
         "req_dep=@local_config_cuda//cuda:cuda_headers",
     ]
+    kwargs['defines'] = kwargs.get('defines', []) + tf_defines_nortti_if_lite_protos()
     tf_gpu_library(
         name = name,
         srcs = srcs,
@@ -1506,6 +1509,7 @@ def tf_kernel_library(
         copts = copts,
         tags = ["manual", "notap"],
         deps = deps,
+        defines = tf_defines_nortti_if_lite_protos(),
     )
 
 def tf_mkl_kernel_library(

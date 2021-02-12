@@ -110,7 +110,8 @@ tf_cuda_library(
         "//conditions:default": [
             ":tf_attrtype",
             "//tensorflow/core:core_cpu",
-            "//tensorflow/core:framework",
+            #"//tensorflow/core:framework",
+            "//tensorflow/core:framework_lite",
             "//tensorflow/core:lib",
             "//tensorflow/core/platform:platform",
             "//tensorflow/core:op_gen_lib",
@@ -336,7 +337,9 @@ cc_library(
             "//tensorflow/core:portable_tensorflow_lib_lite",  # TODO(annarev): exclude runtime srcs
         ],
         "//conditions:default": [
-            "//tensorflow/core:framework",
+            #"//tensorflow/core:framework",
+            "//tensorflow/core:framework_lite",
+            "//tensorflow/core:framework_internal",
         ],
     }),
     alwayslink = 1,
@@ -359,7 +362,8 @@ cc_library(
             "//tensorflow/core:portable_tensorflow_lib_lite",  # TODO(annarev): exclude runtime srcs
         ],
         "//conditions:default": [
-            "//tensorflow/core:framework",
+            #"//tensorflow/core:framework",
+            "//tensorflow/core:framework_lite",
             "//tensorflow/core:lib",
             "//tensorflow/core:protos_all_cc",
             "//tensorflow/core/platform:casts",
@@ -384,7 +388,8 @@ tf_cuda_library(
             "//tensorflow/core:portable_tensorflow_lib_lite",  # TODO(annarev): exclude runtime srcs
         ],
         "//conditions:default": [
-            "//tensorflow/core:framework",
+            #"//tensorflow/core:framework",
+            "//tensorflow/core:framework_lite",
             "//tensorflow/core:protos_all_cc",
             "//tensorflow/core/platform:casts",
         ],

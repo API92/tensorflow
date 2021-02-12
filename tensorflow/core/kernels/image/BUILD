@@ -264,7 +264,30 @@ tf_kernel_library(
 tf_kernel_library(
     name = "scale_and_translate_op",
     prefix = "scale_and_translate_op",
-    deps = IMAGE_DEPS + [":sampling_kernels"],
+    #deps = IMAGE_DEPS + [":sampling_kernels"],
+    deps = [
+        #"//third_party/eigen3",
+        #"//tensorflow/core:framework",
+        "//tensorflow/core:framework_lite",
+        "//tensorflow/core:framework_internal",
+        "//tensorflow/core/lib/core:notification",
+        "//tensorflow/core/lib/core:status",
+        "//tensorflow/core/lib/core:stringpiece",
+        "//tensorflow/core/util:padding",
+        "//tensorflow/core/util:tensor_format",
+        #"//tensorflow/core/util:device_name_utils",
+        #"//tensorflow/core:gif_internal",
+        #"//tensorflow/core:jpeg_internal",
+        #"//tensorflow/core:lib",
+        #"//tensorflow/core:lib_internal",
+        #"//tensorflow/core/lib/png:png_io",
+        "//tensorflow/core:protos_all_cc",
+        #"//tensorflow/core/framework:bounds_check",
+        #"//tensorflow/core/kernels:eigen_helpers",
+        #"//tensorflow/core/util/tensor_bundle",
+        #"//tensorflow/core/util:image_resizer_state",
+    ] + [":sampling_kernels"],
+    visibility = ["//visibility:public"],
 )
 
 tf_kernel_library(
@@ -306,7 +329,34 @@ tf_kernel_library(
 tf_kernel_library(
     name = "image_ops",
     prefix = "image_ops",
-    deps = IMAGE_DEPS,
+    srcs = [
+        "//tensorflow/core/framework:framework_internal_private_hdrs",
+        "//tensorflow/core:lib_internal_private_headers",
+    ],
+    #deps = IMAGE_DEPS,
+    deps = [
+        #"//third_party/eigen3",
+        #"//tensorflow/core:framework",
+        "//tensorflow/core:framework_lite",
+        "//tensorflow/core:framework_internal",
+        "//tensorflow/core/lib/core:notification",
+        "//tensorflow/core/lib/core:status",
+        "//tensorflow/core/lib/core:stringpiece",
+        "//tensorflow/core/util:padding",
+        "//tensorflow/core/util:tensor_format",
+        #"//tensorflow/core/util:device_name_utils",
+        #"//tensorflow/core:gif_internal",
+        #"//tensorflow/core:jpeg_internal",
+        #"//tensorflow/core:lib",
+        #"//tensorflow/core:lib_internal",
+        #"//tensorflow/core/lib/png:png_io",
+        "//tensorflow/core:protos_all_cc",
+        #"//tensorflow/core/framework:bounds_check",
+        #"//tensorflow/core/kernels:eigen_helpers",
+        #"//tensorflow/core/util/tensor_bundle",
+        #"//tensorflow/core/util:image_resizer_state",
+    ],
+    visibility = ["//visibility:public"],
 )
 
 tf_kernel_library(
