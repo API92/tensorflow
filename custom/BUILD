@@ -31,6 +31,7 @@ tflite_flex_cc_library(
   additional_deps = [
       "//tensorflow/core/kernels/image:image_ops",
       "//tensorflow/core/kernels/image:scale_and_translate_op",
+      "//tensorflow/core/kernels/image:decode_image_op",
       ":registrators",
   ],
 )

@@ -200,7 +200,17 @@ tf_kernel_library(
 tf_kernel_library(
     name = "decode_image_op",
     prefix = "decode_image_op",
-    deps = IMAGE_DEPS + ["@com_google_absl//absl/strings"],
+    #deps = IMAGE_DEPS + ["@com_google_absl//absl/strings"],
+    deps = [
+        "//tensorflow/core:framework_lite",
+        "//tensorflow/core:framework_internal",
+        "//tensorflow/core:jpeg_internal",
+        "//tensorflow/core:gif_internal",
+        "//tensorflow/core/lib/png:png_io",
+        "//tensorflow/core/util/tensor_bundle:tensor_bundle",
+        "@com_google_absl//absl/strings",
+    ],
+    visibility = ["//visibility:public"],
 )
 
 tf_kernel_library(

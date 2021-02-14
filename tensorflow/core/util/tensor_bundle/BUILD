@@ -54,7 +54,8 @@ cc_library(
     deps = [
         ":naming",
         "//tensorflow/core:core_cpu_lib",
-        "//tensorflow/core:framework",
+        #"//tensorflow/core:framework",
+        "//tensorflow/core:framework_lite",
         "//tensorflow/core:framework_internal",
         "//tensorflow/core:lib",
         "//tensorflow/core:lib_internal",
