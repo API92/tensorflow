@@ -31,6 +31,7 @@
 "ImageProjectiveTransformV2<CPUDevice, float>",
 "ScaleAndTranslateOp<CPUDevice, float>",
 "DecodeImageV2Op",
+"EncodeJpegOp",
 };
 #define SHOULD_REGISTER_OP_KERNEL(clz) (find_in<sizeof(kNecessaryOpKernelClasses) / sizeof(*kNecessaryOpKernelClasses)>::f(clz, kNecessaryOpKernelClasses))
 
@@ -39,6 +40,7 @@ constexpr inline bool ShouldRegisterOp(const char op[]) {
      || isequal(op, "ImageProjectiveTransformV2")
      || isequal(op, "ScaleAndTranslate")
      || isequal(op, "DecodeImage")
+     || isequal(op, "EncodeJpeg")
   ;
 }
 #define SHOULD_REGISTER_OP(op) ShouldRegisterOp(op)

@@ -222,7 +222,13 @@ tf_kernel_library(
 tf_kernel_library(
     name = "encode_jpeg_op",
     prefix = "encode_jpeg_op",
-    deps = IMAGE_DEPS,
+    #deps = IMAGE_DEPS,
+    deps = [
+        "//tensorflow/core:framework_lite",
+        "//tensorflow/core:framework_internal",
+        "//tensorflow/core:jpeg_internal",
+    ],
+    visibility = ["//visibility:public"],
 )
 
 tf_kernel_library(

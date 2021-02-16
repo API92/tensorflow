@@ -32,6 +32,7 @@ tflite_flex_cc_library(
       "//tensorflow/core/kernels/image:image_ops",
       "//tensorflow/core/kernels/image:scale_and_translate_op",
       "//tensorflow/core/kernels/image:decode_image_op",
+      "//tensorflow/core/kernels/image:encode_jpeg_op",
       ":registrators",
   ],
 )
